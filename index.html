@@ -8,8 +8,27 @@
 <body>
 <div id="header">Bla Bla</div>
 <div id="editor">
-    <div class="node"></div>
+
 </div>
-<script src="index.js"></script>
+<script type="module">
+    import EditorUI from './modules/ui/editorui.js'
+    import NodeUI from './modules/ui/nodeui.js'
+
+    const editor = new EditorUI(document.querySelector('#editor'));
+
+    const nodeElement = document.createElement('div');
+    nodeElement.classList.add('node');
+    editor.addNode(new NodeUI(editor, null, nodeElement));
+
+    const nodeElement2 = document.createElement('div');
+    nodeElement2.classList.add('node');
+    nodeElement2.style.left = '250px';
+    editor.addNode(new NodeUI(editor, null, nodeElement2));
+
+    const nodeElement3 = document.createElement('div');
+    nodeElement3.classList.add('node');
+    nodeElement3.style.left = '500px';
+    editor.addNode(new NodeUI(editor, null, nodeElement3));
+</script>
 </body>
 </html>

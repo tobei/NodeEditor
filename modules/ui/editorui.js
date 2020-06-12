@@ -7,10 +7,12 @@ export default class EditorUI extends Emitter {
     constructor(viewportElement) {
         super();
 
+        //TODO separate viewport and workspace
         this.viewportElement = viewportElement;
-
         this.workspaceElement = document.createElement('div');
+        this.workspaceElement.style.transformOrigin = '0 0';
         this.viewportElement.appendChild(this.workspaceElement);
+
 
         this.selectedNodes = new Set(); //TODO selection manager
         this.nodeDragManager = new DragManager(this.viewportElement);
@@ -38,10 +40,19 @@ export default class EditorUI extends Emitter {
         });
 
         this.viewportElement.addEventListener('wheel', event => {
-            console.log(event.deltaY);
+            const delta = (event.deltaY / 1000.0);
 
-            this.position.z -= (event.deltaY / 2000.0);
-            this.position.z = Math.min(Math.max(this.position.z, 0.5), 2.0);
+            const ratio = 1 - (this.position.z / (this.position.z + delta));
+
+            const rect = this.workspaceElement.getBoundingClientRect();
+
+            const ox = (rect.left - event.clientX) * ratio;
+            const oy = (rect.top - event.clientY) * ratio;
+
+            this.position.z -= delta;
+
+            this.position.x -= ox;
+            this.position.y -= oy;
 
             this._updateTransformation();
         });

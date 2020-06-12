@@ -16,19 +16,22 @@
 
     const editor = new EditorUI(document.querySelector('#editor'));
 
-    const nodeElement = document.createElement('div');
-    nodeElement.classList.add('node');
-    editor.addNode(new NodeUI(editor, null, nodeElement));
+    const node1 = new NodeUI(editor, null, document.createElement('div'));
+    editor.addNode(node1);
+    node1.move(50,20);
 
-    const nodeElement2 = document.createElement('div');
-    nodeElement2.classList.add('node');
-    nodeElement2.style.left = '250px';
-    editor.addNode(new NodeUI(editor, null, nodeElement2));
 
-    const nodeElement3 = document.createElement('div');
-    nodeElement3.classList.add('node');
-    nodeElement3.style.left = '500px';
-    editor.addNode(new NodeUI(editor, null, nodeElement3));
+    const node2 = new NodeUI(editor, null, document.createElement('div'));
+    editor.addNode(node2);
+    node2.move(300,20);
+
+
+    const node3 = new NodeUI(editor, null, document.createElement('div'));
+    editor.addNode(node3);
+    node3.move(550,20);
+
+
+
 </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 import Emitter from "../event/emitter.js";
+import DragManager from "./dragmanager.js";
 
 export default class EditorUI extends Emitter {
 
@@ -6,8 +7,8 @@ export default class EditorUI extends Emitter {
     constructor(element) {
         super();
         this.element = element;
-        this.selectedNodes = new Set();
-        this.dragReferencePoint = null; //TODO: move into a drag manager
+        this.selectedNodes = new Set(); //TODO selection manager
+        this.dragManager = new DragManager(this.element);
 
         this.element.addEventListener('click', event => {
             if (event.target === this.element) {
@@ -15,28 +16,14 @@ export default class EditorUI extends Emitter {
             }
         });
 
-        this.element.addEventListener('pointermove', event => {
-            if (this.dragReferencePoint) {
-                const deltaX = event.clientX - this.dragReferencePoint.x;
-                const deltaY = event.clientY - this.dragReferencePoint.y;
-                for (const selectedNode of this.selectedNodes) {
-                    selectedNode.move(deltaX, deltaY);
-                }
-                this.dragReferencePoint.x += deltaX;
-                this.dragReferencePoint.y += deltaY;
-            }
-        });
 
-        this.element.addEventListener('pointerup', event => {
-            this.dragReferencePoint = null;
+        this.dragManager.on('dragMove', event => {
+            this.selectedNodes.forEach(node => node.move(event.x, event.y));
         });
     }
 
     addNode(nodeUI) {
-        //TODO: move into drag behavior
-        nodeUI.on('nodeDragStarted', event => {
-            this.dragReferencePoint = {x: event.clientX, y: event.clientY};
-        });
+        this.dragManager.monitor(nodeUI);
         nodeUI.on('nodeSelected', event => {
             if (this.selectedNodes.has(event.node)) return;
             if (! event.multiSelection) {

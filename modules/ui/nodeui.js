@@ -4,7 +4,7 @@ export default class NodeUI extends Emitter {
 
 
     constructor(editorUI, node, element) {
-        super();
+        super('nodeSelected', 'nodeDragStarted');
         this.editorUI = editorUI;
         this.element = element;
         this.node = node;
@@ -35,12 +35,11 @@ export default class NodeUI extends Emitter {
         console.log('move : ' + deltaX + ' ' + deltaY);
         this.position.x += deltaX;
         this.position.y += deltaY;
-
+        console.log('position : ' + this.position.x + ' ' + this.position.y);
         this.element.style.transform = `translate(${this.position.x}px, ${this.position.y}px)`;
     }
 
-    // * will fire event when selected (with boolean if single select or ctrl-select), deselect will be triggered by the editor
-    // when a user clicks out
+    // * will fire event when selected (with boolean if single select or ctrl-select), deselect will be triggered by the editor when a user clicks out
     // * will fire event optionally when deselected
     // * will fire event when starts being dragged (move commands will be triggered by the editor)
 

@@ -15,6 +15,7 @@ export default class NodeUI extends Emitter {
 
         this.element.addEventListener('pointerdown', event => {
             event.stopPropagation();
+            if (event.button !== 0) return;
             this.select();
             this.emit('nodeSelected', {node: this, multiSelection: event.ctrlKey || event.shiftKey});
         });

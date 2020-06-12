@@ -7,12 +7,21 @@ html {
 }
 
 #editor {
-    position: relative;
     overflow: hidden;
     border-radius: 5px;
-    background-color: darkcyan;
+
     width: 1000px;
     height: 500px;
+
+    background-color: pink;
+    border: 2px solid red;
+}
+
+.ws {
+    position: relative;
+    background-color: darkcyan;
+    width: 2000px;
+    height: 2000px;
 }
 
 .node {

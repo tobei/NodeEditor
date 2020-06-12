@@ -4,20 +4,24 @@ import DragManager from "./dragmanager.js";
 export default class EditorUI extends Emitter {
 
 
-    constructor(element) {
+    constructor(viewportElement) {
         super();
 
-        this.element = element;
+        this.viewportElement = viewportElement;
+        this.workspaceElement = document.createElement('div');
+        this.workspaceElement.classList.add('ws')
+
+        this.viewportElement.appendChild(this.workspaceElement);
 
         this.selectedNodes = new Set(); //TODO selection manager
-        this.nodeDragManager = new DragManager(this.element);
-        this.editorDragManager = new DragManager(this.element);
-        this.editorDragManager.monitor(this.element);
+        this.nodeDragManager = new DragManager(this.workspaceElement);
+        this.editorDragManager = new DragManager(this.workspaceElement);
+        this.editorDragManager.monitor(this.workspaceElement);
 
         this.position = {x:0, y:0};
 
-        this.element.addEventListener('click', event => {
-            if (event.target === this.element) {
+        this.workspaceElement.addEventListener('click', event => {
+            if (event.target === this.workspaceElement) {
                 this._deselectNodes();
             }
         });
@@ -31,7 +35,7 @@ export default class EditorUI extends Emitter {
             this.position.x += event.x;
             this.position.y += event.y;
 
-            this.element.style.transform = `translate(${this.position.x}px, ${this.position.y}px)`;
+            this.workspaceElement.style.transform = `translate(${this.position.x}px, ${this.position.y}px)`;
         });
     }
 
@@ -45,7 +49,7 @@ export default class EditorUI extends Emitter {
             this._selectNode(event.node);
         });
 
-        this.element.appendChild(nodeUI.element);
+        this.workspaceElement.appendChild(nodeUI.element);
     }
 
     _deselectNodes() {

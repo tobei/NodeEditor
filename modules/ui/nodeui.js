@@ -16,7 +16,7 @@ export default class NodeUI extends Emitter {
         this.element.addEventListener('pointerdown', event => {
             event.stopPropagation();
             this.select();
-            this.emit('nodeSelected', {node: this, multiSelection: event.ctrlKey});
+            this.emit('nodeSelected', {node: this, multiSelection: event.ctrlKey || event.shiftKey});
             this.emit('nodeDragStarted', {clientX: event.clientX, clientY: event.clientY});
         });
 
@@ -32,16 +32,11 @@ export default class NodeUI extends Emitter {
     }
 
     move(deltaX, deltaY) {
-        console.log('move : ' + deltaX + ' ' + deltaY);
         this.position.x += deltaX;
         this.position.y += deltaY;
-        console.log('position : ' + this.position.x + ' ' + this.position.y);
         this.element.style.transform = `translate(${this.position.x}px, ${this.position.y}px)`;
     }
 
-    // * will fire event when selected (with boolean if single select or ctrl-select), deselect will be triggered by the editor when a user clicks out
-    // * will fire event optionally when deselected
-    // * will fire event when starts being dragged (move commands will be triggered by the editor)
 
 
 

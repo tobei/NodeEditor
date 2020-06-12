@@ -8,15 +8,14 @@ export default class EditorUI extends Emitter {
         super();
 
         this.viewportElement = viewportElement;
-        this.workspaceElement = document.createElement('div');
-        this.workspaceElement.classList.add('ws')
 
+        this.workspaceElement = document.createElement('div');
         this.viewportElement.appendChild(this.workspaceElement);
 
         this.selectedNodes = new Set(); //TODO selection manager
-        this.nodeDragManager = new DragManager(this.workspaceElement);
-        this.editorDragManager = new DragManager(this.workspaceElement);
-        this.editorDragManager.monitor(this.workspaceElement);
+        this.nodeDragManager = new DragManager(this.viewportElement);
+        this.editorDragManager = new DragManager(this.viewportElement);
+        this.editorDragManager.monitor(this.viewportElement);
 
         this.position = {x:0, y:0};
 

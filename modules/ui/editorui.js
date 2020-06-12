@@ -40,8 +40,10 @@ export default class EditorUI extends Emitter {
         });
 
         this.viewportElement.addEventListener('wheel', event => {
-            const delta = (event.deltaY / 500.0);
-            const newScale =  this.position.z - delta;
+            const ratePerStep = 0.1;
+            const steps = (event.deltaY / 100.0);
+
+            const newScale =  this.position.z * (1.0 - (ratePerStep * steps));
 
             const ratio = 1 - (newScale / (this.position.z));
 

@@ -38,11 +38,13 @@ export default class EditorUI extends Emitter {
             this.dragReferencePoint = {x: event.clientX, y: event.clientY};
         });
         nodeUI.on('nodeSelected', event => {
+            if (this.selectedNodes.has(event.node)) return;
             if (! event.multiSelection) {
                 this._deselectNodes();
             }
             this._selectNode(event.node);
         });
+
         this.element.appendChild(nodeUI.element);
     }
 

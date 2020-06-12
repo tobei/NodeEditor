@@ -19,8 +19,8 @@ export default class EditorUI extends Emitter {
 
         this.position = {x:0, y:0};
 
-        this.workspaceElement.addEventListener('click', event => {
-            if (event.target === this.workspaceElement) {
+        this.viewportElement.addEventListener('click', event => {
+            if (event.target === this.viewportElement) {
                 this._deselectNodes();
             }
         });

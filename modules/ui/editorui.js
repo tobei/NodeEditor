@@ -7,7 +7,7 @@ export default class EditorUI extends Emitter {
         super();
         this.element = element;
         this.selectedNodes = new Set();
-        this.dragReferencePoint = null; // move into a drag manager
+        this.dragReferencePoint = null; //TODO: move into a drag manager
 
         this.element.addEventListener('click', event => {
             if (event.target === this.element) {
@@ -33,6 +33,7 @@ export default class EditorUI extends Emitter {
     }
 
     addNode(nodeUI) {
+        //TODO: move into drag behavior
         nodeUI.on('nodeDragStarted', event => {
             this.dragReferencePoint = {x: event.clientX, y: event.clientY};
         });

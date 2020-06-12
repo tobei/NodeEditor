@@ -17,6 +17,7 @@ export default class NodeUI extends Emitter {
             event.stopPropagation();
             this.select();
             this.emit('nodeSelected', {node: this, multiSelection: event.ctrlKey});
+            this.emit('nodeDragStarted', {clientX: event.clientX, clientY: event.clientY});
         });
     }
 
@@ -30,6 +31,7 @@ export default class NodeUI extends Emitter {
     }
 
     move(deltaX, deltaY) {
+        console.log('move : ' + deltaX + ' ' + deltaY);
         this.position.x += deltaX;
         this.position.y += deltaY;
 

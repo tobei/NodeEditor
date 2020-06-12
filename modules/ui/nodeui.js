@@ -4,7 +4,7 @@ export default class NodeUI extends Emitter {
 
 
     constructor(editorUI, node, element) {
-        super('nodeSelected', 'nodeDragStarted');
+        super('nodeSelected');
         this.editorUI = editorUI;
         this.element = element;
         this.node = node;

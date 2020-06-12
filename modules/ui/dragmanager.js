@@ -25,6 +25,7 @@ export default class DragManager extends Emitter {
 
     monitor(draggableElement) {
         draggableElement.addEventListener('pointerdown', event => {
+            event.preventDefault()
             this.dragReferencePoint = {x: event.clientX, y: event.clientY};
         });
     }

@@ -42,7 +42,7 @@ export default class EditorUI extends Emitter {
         this.viewportElement.addEventListener('wheel', event => {
             const delta = (event.deltaY / 1000.0);
 
-            const ratio = 1 - (this.position.z / (this.position.z + delta));
+            const ratio = 1 - ((this.position.z - delta) / (this.position.z));
 
             const rect = this.workspaceElement.getBoundingClientRect();
 

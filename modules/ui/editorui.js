@@ -6,9 +6,15 @@ export default class EditorUI extends Emitter {
 
     constructor(element) {
         super();
+
         this.element = element;
+
         this.selectedNodes = new Set(); //TODO selection manager
-        this.dragManager = new DragManager(this.element);
+        this.nodeDragManager = new DragManager(this.element);
+        this.editorDragManager = new DragManager(this.element);
+        this.editorDragManager.monitor(this.element);
+
+        this.position = {x:0, y:0};
 
         this.element.addEventListener('click', event => {
             if (event.target === this.element) {
@@ -17,13 +23,20 @@ export default class EditorUI extends Emitter {
         });
 
 
-        this.dragManager.on('dragMove', event => {
+        this.nodeDragManager.on('dragMove', event => {
             this.selectedNodes.forEach(node => node.move(event.x, event.y));
+        });
+
+        this.editorDragManager.on('dragMove', event => {
+            this.position.x += event.x;
+            this.position.y += event.y;
+
+            this.element.style.transform = `translate(${this.position.x}px, ${this.position.y}px)`;
         });
     }
 
     addNode(nodeUI) {
-        this.dragManager.monitor(nodeUI);
+        this.nodeDragManager.monitor(nodeUI.element);
         nodeUI.on('nodeSelected', event => {
             if (this.selectedNodes.has(event.node)) return;
             if (! event.multiSelection) {

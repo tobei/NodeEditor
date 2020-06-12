@@ -17,7 +17,6 @@ export default class NodeUI extends Emitter {
             event.stopPropagation();
             this.select();
             this.emit('nodeSelected', {node: this, multiSelection: event.ctrlKey || event.shiftKey});
-            this.emit('nodeDragStarted', {clientX: event.clientX, clientY: event.clientY});
         });
 
     }

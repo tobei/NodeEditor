@@ -40,19 +40,23 @@ export default class EditorUI extends Emitter {
         });
 
         this.viewportElement.addEventListener('wheel', event => {
-            const delta = (event.deltaY / 1000.0);
+            const delta = (event.deltaY / 500.0);
+            const newScale =  this.position.z - delta;
 
-            const ratio = 1 - ((this.position.z - delta) / (this.position.z));
+            const ratio = 1 - (newScale / (this.position.z));
 
             const rect = this.workspaceElement.getBoundingClientRect();
 
             const ox = (rect.left - event.clientX) * ratio;
             const oy = (rect.top - event.clientY) * ratio;
 
-            this.position.z -= delta;
+
+            if (newScale < 0.1 || newScale > 5) return;
+
 
             this.position.x -= ox;
             this.position.y -= oy;
+            this.position.z = newScale;
 
             this._updateTransformation();
         });

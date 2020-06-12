@@ -14,13 +14,12 @@ html {
     width: 80vw;
     height: 80vh;
 
-    background-color: aliceblue;
-    border: 1px solid dimgray;
+    background-color: darkslateblue;
 }
 
 
 .node {
-    background-color: lightblue;
+    background-color: indianred;
     position: absolute;
     border-radius: 5px;
     min-height: 200px;
@@ -28,6 +27,5 @@ html {
 }
 
 .node.selected {
-    background-color: lightskyblue;
-    border: 3px solid dodgerblue;
+    border: 3px solid pink;
 }

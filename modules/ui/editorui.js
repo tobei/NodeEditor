@@ -39,7 +39,12 @@ export default class EditorUI extends Emitter {
             const ox = (workspaceDimensions.left - event.clientX);
             const oy = (workspaceDimensions.top - event.clientY);
             this.workspace.transform.scaleAround(ox, oy, delta);
-            this.backgroundTransform.scaleAround(ox, oy, delta);
+
+
+            const backgroundDimensions = this.backgroundElement.getBoundingClientRect();
+            const ox2 = (backgroundDimensions.left - event.clientX);
+            const oy2 = (backgroundDimensions.top - event.clientY);
+            this.backgroundTransform.scaleAround(ox2, oy2, delta);
         });
     }
 

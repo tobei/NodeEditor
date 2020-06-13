@@ -5,7 +5,6 @@ export default class DragManager extends Emitter {
     constructor() {
         super('dragMove');
         this.dragReferencePoint = null;
-
         window.addEventListener('pointermove', event => {
             if (!this.dragReferencePoint) return;
 
@@ -19,7 +18,6 @@ export default class DragManager extends Emitter {
         });
 
         window.addEventListener('pointerup', event => this.dragReferencePoint = null);
-
     }
 
     monitor(draggableElement, button = 0) {

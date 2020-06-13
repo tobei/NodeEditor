@@ -18,6 +18,14 @@ export default class WorkspaceUI {
             const workspaceDistance = this.transform.asLocalDistance(event.x, event.y);
             this.selectedNodes.forEach(node => node.move(...workspaceDistance));
         });
+
+        this.editorUI.on('translate', event => this.transform.translate(event.x, event.y));
+        this.editorUI.on('scale', event => {
+            const bounds = this.element.getBoundingClientRect();
+            const ox = (bounds.left - event.x);
+            const oy = (bounds.top - event.y);
+            this.transform.scaleAround(ox, oy, event.delta);
+        });
     }
 
     addNode(nodeUI) {

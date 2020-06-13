@@ -2,12 +2,11 @@ import Emitter from "../event/emitter.js";
 
 export default class DragManager extends Emitter {
 
-    constructor(referenceElement) {
+    constructor() {
         super('dragMove');
         this.dragReferencePoint = null;
-        this.referenceElement = referenceElement;
 
-        this.referenceElement.addEventListener('pointermove', event => {
+        window.addEventListener('pointermove', event => {
             if (!this.dragReferencePoint) return;
 
             const deltaX = event.clientX - this.dragReferencePoint.x;
@@ -19,7 +18,7 @@ export default class DragManager extends Emitter {
             this.emit('dragMove', {x: deltaX, y: deltaY});
         });
 
-        this.referenceElement.addEventListener('pointerup', event => this.dragReferencePoint = null);
+        window.addEventListener('pointerup', event => this.dragReferencePoint = null);
 
     }
 

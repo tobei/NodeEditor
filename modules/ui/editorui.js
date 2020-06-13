@@ -9,6 +9,15 @@ export default class EditorUI extends Emitter {
         this.viewportElement = viewportElement;
         this.workspace = new WorkspaceUI(this);
 
+        this.backgroundElement = document.createElement('div');
+        this.backgroundElement.style.width = '120%';
+        this.backgroundElement.style.height = '120%';
+        this.backgroundElement.style.position = 'absolute';
+        this.backgroundElement.style.background = 'url(./background.svg)';
+        this.backgroundElement.style.zIndex = '-1';
+
+        this.viewportElement.appendChild(this.backgroundElement);
+
         this.viewportElement.addEventListener('click', event => {
             if (event.target === this.viewportElement) {
                 this.workspace.deselectNodes();

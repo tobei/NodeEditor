@@ -14,12 +14,17 @@ html {
     width: 80vw;
     height: 80vh;
 
-    background-color: darkslateblue;
+    border: 1px solid black;
+
 }
 
+#editor>svg {
+    position: absolute;
+    z-index: -1;
+}
 
 .node {
-    background-color: indianred;
+    background-color: lightsteelblue;
     position: absolute;
     border-radius: 5px;
     min-height: 200px;
@@ -27,5 +32,5 @@ html {
 }
 
 .node.selected {
-    border: 3px solid pink;
+    box-shadow: 0 0 3px #222222;
 }

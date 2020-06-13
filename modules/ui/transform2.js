@@ -49,7 +49,7 @@ export default class Transform2 extends Transform {
 
         const ratio = 1.0 - (newScale / currentScale);
 
-        if (newScale < 0.1 || newScale > 5) return;
+        if (newScale < 0.3 || newScale > 4) return;
 
         this.translateX = (this.translateX - (centerX * ratio)) % this.wrapSize - this.wrapSize;
         this.translateY = (this.translateY - (centerY * ratio)) % this.wrapSize - this.wrapSize;

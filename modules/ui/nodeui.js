@@ -4,9 +4,8 @@ import Transform from "./transform.js";
 export default class NodeUI extends Emitter {
 
 
-    constructor(editorUI, node, element) {
+    constructor(node, element) {
         super('nodeSelected');
-        this.editorUI = editorUI; //TODO maybe not needed, consider workspace or workspace.transform instead
         this.element = element;
         this.node = node;
         this.transform = new Transform(0, 0, 1);
@@ -33,7 +32,6 @@ export default class NodeUI extends Emitter {
         this.element.classList.remove('selected');
     }
 
-    //TODO adjust for workspace transform (scaling)
     move(deltaX, deltaY) {
         this.transform.translate(deltaX, deltaY);
     }

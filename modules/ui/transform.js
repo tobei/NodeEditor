@@ -21,7 +21,7 @@ export default class Transform extends Emitter {
         const newScale =  currentScale + scaleDelta;
         const ratio = 1 - (newScale / currentScale);
 
-        if (newScale < 0.1 || newScale > 5) return;
+        if (newScale < 0.3 || newScale > 4) return;
 
         this.translateX -= centerX * ratio;
         this.translateY -= centerY * ratio;

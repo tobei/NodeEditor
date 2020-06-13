@@ -32,5 +32,5 @@ html {
 }
 
 .node.selected {
-    box-shadow: 0 0 3px #222222;
+    box-shadow: 0px 0px 5px #555555;
 }

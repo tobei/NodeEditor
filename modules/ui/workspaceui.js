@@ -6,7 +6,7 @@ export default class WorkspaceUI {
     constructor(editorUI) {
         this.editorUI = editorUI;
         this.element = document.createElement('div');
-        this.editorUI.viewportElement.appendChild(this.element);
+        this.editorUI.element.appendChild(this.element);
 
         this.transform = new Transform(0, 0, 1);
         this.transform.on('transform', event => event.transform.apply(this.element));

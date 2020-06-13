@@ -1,14 +1,16 @@
 import Emitter from "../event/emitter.js";
+import Transform from "./transform.js";
 
 export default class NodeUI extends Emitter {
 
 
     constructor(editorUI, node, element) {
         super('nodeSelected');
-        this.editorUI = editorUI;
+        this.editorUI = editorUI; //TODO maybe not needed, consider workspace or workspace.transform instead
         this.element = element;
         this.node = node;
-        this.position = {x:0, y:0};
+        this.transform = new Transform(0, 0, 1);
+        this.transform.on('transform', event => event.transform.apply(this.element));
 
         this.element.classList.add('node');
         this.element.style.position = 'absolute';
@@ -31,10 +33,9 @@ export default class NodeUI extends Emitter {
         this.element.classList.remove('selected');
     }
 
+    //TODO adjust for workspace transform (scaling)
     move(deltaX, deltaY) {
-        this.position.x += deltaX;
-        this.position.y += deltaY;
-        this.element.style.transform = `translate(${this.position.x}px, ${this.position.y}px)`;
+        this.transform.translate(deltaX, deltaY);
     }
 
 

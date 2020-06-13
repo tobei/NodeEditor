@@ -17,17 +17,17 @@
     const editor = new EditorUI(document.querySelector('#editor'));
 
     const node1 = new NodeUI(editor, null, document.createElement('div'));
-    editor.addNode(node1);
+    editor.workspace.addNode(node1);
     node1.move(50,20);
 
 
     const node2 = new NodeUI(editor, null, document.createElement('div'));
-    editor.addNode(node2);
+    editor.workspace.addNode(node2);
     node2.move(300,20);
 
 
     const node3 = new NodeUI(editor, null, document.createElement('div'));
-    editor.addNode(node3);
+    editor.workspace.addNode(node3);
     node3.move(550,20);
 
 

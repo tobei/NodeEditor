@@ -1,7 +1,7 @@
 import Transform from "./transform.js";
 
 
-export default class Transform2 extends Transform {
+export default class TiledTransform extends Transform {
 
     constructor(element, parent, tileDimension) {
         super(-tileDimension ,-tileDimension , 1);
@@ -20,9 +20,6 @@ export default class Transform2 extends Transform {
         const parentDimensions = this.parent.getBoundingClientRect();
         this.element.style.width = `${(parentDimensions.width + 2 * this.wrapSize) / this.scaleFactor}px`;
         this.element.style.height = `${(parentDimensions.height + 2 * this.wrapSize) /this.scaleFactor}px`;
-
-        //this.element.style.left = `${-this.wrapSize}px`;
-        //this.element.style.top = `${-this.wrapSize}px`;
     }
 
 
@@ -42,10 +39,6 @@ export default class Transform2 extends Transform {
         const parentDimensions = this.parent.getBoundingClientRect();
         this.element.style.width = `${(parentDimensions.width + 2 * this.wrapSize) / newScale}px`;
         this.element.style.height = `${(parentDimensions.height + 2 * this.wrapSize) / newScale}px`;
-
-
-        //this.element.style.left = `${-this.wrapSize}px`;
-        //this.element.style.top = `${-this.wrapSize}px`;
 
         const ratio = 1.0 - (newScale / currentScale);
 

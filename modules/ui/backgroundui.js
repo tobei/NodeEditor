@@ -1,4 +1,4 @@
-import Transform2 from "./transform2.js";
+import TiledTransform from "./TiledTransform.js";
 
 export default class BackgroundUI {
 
@@ -9,7 +9,9 @@ export default class BackgroundUI {
         this.element.style.background = 'url(./background.svg)';
         this.element.style.zIndex = '-1';
         this.editorUI.element.appendChild(this.element);
-        this.transform = new Transform2(this.element, this.editorUI.element, 80);
+        this.transform = new TiledTransform(this.element, this.editorUI.element, 80);
+        window.addEventListener('resize', event => this.transform.updateDimensions());
+
         this.transform.on('transform', event => event.transform.apply(this.element));
 
         this.editorUI.on('translate', event => this.transform.translate(event.x, event.y));

@@ -16,7 +16,6 @@ export default class Transform extends Emitter {
         this.emit('transform', {transform: this});
     }
 
-    //TODO center is broken at the moment
     scaleAround(centerX, centerY, scaleDelta) {
         const currentScale = this.scaleFactor;
         const newScale =  currentScale + scaleDelta;

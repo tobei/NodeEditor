@@ -2,7 +2,7 @@ import Emitter from "../event/emitter.js";
 
 export default class Transform extends Emitter {
 
-    //TODO probably add a parent transoform so Node transofmr can refer to Workspace transoform
+    //TODO probably add a parent transform so Node transform can refer to Workspace transform
     constructor(translateX, translateY, scaleFactor) {
         super('transform');
         this.translateX = translateX;

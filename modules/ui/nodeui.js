@@ -48,7 +48,17 @@ export default class NodeUI extends Emitter {
     createInput(name, key, type) {
         const inputElement = document.createElement('div');
         inputElement.classList.add('input');
-        inputElement.textContent = name;
+
+        const nameElement = document.createElement('span');
+        nameElement.classList.add('name');
+        nameElement.textContent = name;
+        inputElement.appendChild(nameElement);
+
+        const socketElement = document.createElement('span');
+        socketElement.classList.add('input');
+        socketElement.classList.add('socket');
+        inputElement.appendChild(socketElement);
+
         this.inputsElement.appendChild(inputElement);
     }
 
@@ -56,7 +66,17 @@ export default class NodeUI extends Emitter {
     createOutput(name, key, type) {
         const outputElement = document.createElement('div');
         outputElement.classList.add('output');
-        outputElement.textContent = name;
+
+        const nameElement = document.createElement('span');
+        nameElement.classList.add('name');
+        nameElement.textContent = name;
+        outputElement.appendChild(nameElement);
+
+        const socketElement = document.createElement('span');
+        socketElement.classList.add('output');
+        socketElement.classList.add('socket');
+        outputElement.appendChild(socketElement);
+
         this.outputsElement.appendChild(outputElement);
     }
 }

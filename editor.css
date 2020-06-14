@@ -44,12 +44,16 @@ html {
 }
 
 .node>.inputs {
+
+    vertical-align: center;
     color: white;
     text-align: left;
     height: 50px;
 }
 
 .node>.outputs {
+
+    vertical-align: center;
     color: white;
     text-align: right;
     height: 50px;
@@ -60,4 +64,29 @@ html {
     background-color: indianred;
     border: 2px dashed #555555;
     box-shadow: 0px 0px 5px #555555;
+}
+
+.socket {
+    display: inline-block;
+    position: absolute;
+    height: 12px;
+    width: 12px;
+    background-color: darkslateblue;
+    border-radius: 6px;
+    border: 1px solid white;
+}
+
+.input.socket {
+    left: 0;
+    margin-left: -8px;
+}
+
+
+.output.socket {
+    right: 0;
+    margin-right: -8px;
+}
+
+.socket.input:hover,.socket.output:hover {
+    background-color: mediumslateblue;
 }

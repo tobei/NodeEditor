@@ -18,8 +18,8 @@ export default class TiledTransform extends Transform {
         this.scaledTileDimension = this.scaleFactor * this.tileDimension;
 
         const parentDimensions = this.parent.getBoundingClientRect();
-        this.element.style.width = `${(parentDimensions.width + 2 * this.tileDimension) / this.scaleFactor}px`;
-        this.element.style.height = `${(parentDimensions.height + 2 * this.tileDimension) /this.scaleFactor}px`;
+        this.element.style.width = `${(parentDimensions.width + 2 * this.scaledTileDimension) / this.scaleFactor}px`;
+        this.element.style.height = `${(parentDimensions.height + 2 * this.scaledTileDimension) /this.scaleFactor}px`;
     }
 
 
@@ -37,8 +37,8 @@ export default class TiledTransform extends Transform {
         this.scaledTileDimension = newScale * this.tileDimension;
 
         const parentDimensions = this.parent.getBoundingClientRect();
-        this.element.style.width = `${(parentDimensions.width + 2 * this.tileDimension) / newScale}px`;
-        this.element.style.height = `${(parentDimensions.height + 2 * this.tileDimension) / newScale}px`;
+        this.element.style.width = `${(parentDimensions.width + 2 * this.scaledTileDimension) / newScale}px`;
+        this.element.style.height = `${(parentDimensions.height + 2 * this.scaledTileDimension) / newScale}px`;
 
         const ratio = 1.0 - (newScale / currentScale);
 

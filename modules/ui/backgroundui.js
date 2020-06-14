@@ -1,4 +1,4 @@
-import TiledTransform from "./TiledTransform.js";
+import TiledTransform from "./tiledtransform.js";
 
 export default class BackgroundUI {
 

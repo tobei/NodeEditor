@@ -1,4 +1,6 @@
 html {
+    font-family: Verdana;
+    font-size: 12px;
 }
 
 #header {
@@ -17,10 +19,6 @@ html {
     touch-action: none;
 }
 
-#editor>svg {
-    position: absolute;
-    z-index: -1;
-}
 
 .node {
     background-color: cornflowerblue;
@@ -30,10 +28,36 @@ html {
     min-height: 200px;
     min-width: 150px;
     cursor: pointer;
+    padding: 10px;
+}
+
+.node:hover {
+    background-color: lightskyblue;
 
 }
 
+
+.node>.title {
+    color: white;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.node>.inputs {
+    color: white;
+    text-align: left;
+    height: 50px;
+}
+
+.node>.outputs {
+    color: white;
+    text-align: right;
+    height: 50px;
+}
+
+
 .node.selected {
+    background-color: indianred;
     border: 2px dashed #555555;
     box-shadow: 0px 0px 5px #555555;
 }

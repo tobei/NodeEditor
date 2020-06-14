@@ -1,5 +1,4 @@
 html {
-
 }
 
 #header {
@@ -15,7 +14,7 @@ html {
     height: 80vh;
 
     border: 1px solid black;
-
+    touch-action: none;
 }
 
 #editor>svg {
@@ -30,6 +29,8 @@ html {
     border-radius: 5px;
     min-height: 200px;
     min-width: 150px;
+    cursor: pointer;
+
 }
 
 .node.selected {

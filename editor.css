@@ -44,24 +44,23 @@ html {
 }
 
 .node>.inputs {
-
-    vertical-align: center;
-    color: white;
     text-align: left;
-    height: 50px;
 }
 
 .node>.outputs {
-
-    vertical-align: center;
-    color: white;
     text-align: right;
-    height: 50px;
+}
+
+.input,.output {
+    vertical-align: middle;
+    color: white;
+    margin: 5px;
+    height: 15px;
 }
 
 
 .node.selected {
-    background-color: indianred;
+    background-color: deepskyblue;
     border: 2px dashed #555555;
     box-shadow: 0px 0px 5px #555555;
 }

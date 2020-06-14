@@ -24,7 +24,8 @@ html {
 }
 
 .node {
-    background-color: lightsteelblue;
+    background-color: cornflowerblue;
+    border: 2px solid #555555;
     position: absolute;
     border-radius: 5px;
     min-height: 200px;
@@ -32,5 +33,6 @@ html {
 }
 
 .node.selected {
+    border: 2px dashed #555555;
     box-shadow: 0px 0px 5px #555555;
 }

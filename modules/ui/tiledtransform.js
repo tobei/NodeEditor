@@ -8,44 +8,43 @@ export default class TiledTransform extends Transform {
         this.element = element;
         this.parent = parent;
         this.tileDimension = tileDimension;
-        this.wrapSize = tileDimension * this.scaleFactor;
+        this.scaledTileDimension = tileDimension * this.scaleFactor;
 
         this.updateDimensions();
     }
 
 
     updateDimensions() {
-        this.wrapSize = this.scaleFactor * this.tileDimension;
+        this.scaledTileDimension = this.scaleFactor * this.tileDimension;
 
         const parentDimensions = this.parent.getBoundingClientRect();
-        this.element.style.width = `${(parentDimensions.width + 2 * this.wrapSize) / this.scaleFactor}px`;
-        this.element.style.height = `${(parentDimensions.height + 2 * this.wrapSize) /this.scaleFactor}px`;
+        this.element.style.width = `${(parentDimensions.width + 2 * this.tileDimension) / this.scaleFactor}px`;
+        this.element.style.height = `${(parentDimensions.height + 2 * this.tileDimension) /this.scaleFactor}px`;
     }
 
 
     translate(deltaX, deltaY) {
-        this.translateX = (this.translateX + deltaX) % this.wrapSize - this.wrapSize;
-        this.translateY = (this.translateY + deltaY) % this.wrapSize - this.wrapSize;
+        this.translateX = (this.translateX + deltaX) % this.scaledTileDimension - this.scaledTileDimension;
+        this.translateY = (this.translateY + deltaY) % this.scaledTileDimension - this.scaledTileDimension;
 
         this.emit('transform', {transform: this});
     }
 
     scaleAround(centerX, centerY, scaleDelta) {
         const currentScale = this.scaleFactor;
-        const newScale =  currentScale + scaleDelta;
+        const newScale =  Math.max(Math.min(currentScale + scaleDelta, 3), 0.5);
 
-        this.wrapSize = (this.scaleFactor + scaleDelta) * this.tileDimension;
+        this.scaledTileDimension = newScale * this.tileDimension;
 
         const parentDimensions = this.parent.getBoundingClientRect();
-        this.element.style.width = `${(parentDimensions.width + 2 * this.wrapSize) / newScale}px`;
-        this.element.style.height = `${(parentDimensions.height + 2 * this.wrapSize) / newScale}px`;
+        this.element.style.width = `${(parentDimensions.width + 2 * this.tileDimension) / newScale}px`;
+        this.element.style.height = `${(parentDimensions.height + 2 * this.tileDimension) / newScale}px`;
 
         const ratio = 1.0 - (newScale / currentScale);
 
-        if (newScale < 0.3 || newScale > 4) return;
 
-        this.translateX = (this.translateX - (centerX * ratio)) % this.wrapSize - this.wrapSize;
-        this.translateY = (this.translateY - (centerY * ratio)) % this.wrapSize - this.wrapSize;
+        this.translateX = (this.translateX - (centerX * ratio)) % this.scaledTileDimension - this.scaledTileDimension;
+        this.translateY = (this.translateY - (centerY * ratio)) % this.scaledTileDimension - this.scaledTileDimension;
         this.scaleFactor = newScale;
 
         this.emit('transform', {transform: this});

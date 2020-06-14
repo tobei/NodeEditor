@@ -18,10 +18,10 @@ export default class Transform extends Emitter {
 
     scaleAround(centerX, centerY, scaleDelta) {
         const currentScale = this.scaleFactor;
-        const newScale =  currentScale + scaleDelta;
+        const newScale =  Math.max(Math.min(currentScale + scaleDelta, 3), 0.5);
         const ratio = 1 - (newScale / currentScale);
 
-        if (newScale < 0.3 || newScale > 4) return;
+
 
         this.translateX -= centerX * ratio;
         this.translateY -= centerY * ratio;

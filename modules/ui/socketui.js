@@ -3,8 +3,9 @@ import Emitter from "../event/emitter.js";
 export default class SocketUI extends Emitter {
 
 
-    constructor(type, input) {
+    constructor(node, type, input) {
         super();
+        this.node = node;
         this.connections = new Set();
         this.element = document.createElement('span');
         this.element.classList.add('socket');
@@ -15,9 +16,9 @@ export default class SocketUI extends Emitter {
             event.preventDefault();
 
             if (input) {
-                console.log('picking existing connection target');
+                this.node.emit('detachConnection', {destinationSocket: this});
             } else {
-                console.log('start dragging a connection');
+                this.node.emit('createConnection', {sourceSocket : this});
             }
         });
 
@@ -25,7 +26,7 @@ export default class SocketUI extends Emitter {
         this.element.addEventListener('pointerup', event => {
             event.stopPropagation();
             if (input) {
-                console.log('complete a connection if it was not dropped');
+                this.node.emit('completeConnection', {destinationSocket: this});
             }
         });
 

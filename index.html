@@ -26,20 +26,20 @@
     const node1 = new NodeUI(null, document.createElement('div'), 'key pair');
     editor.workspace.addNode(node1);
     node1.move(50,20);
-    node1.createOutput('private key', 'pk', new SocketUI(null, false));
-    node1.createOutput('public key', 'pk', new SocketUI(null, false));
-    node1.createInput('user', 'u', new SocketUI(null, true));
+    node1.createOutput('private key', 'pk');
+    node1.createOutput('public key', 'pk');
+    node1.createInput('user', 'u');
 
-    const node2 = new NodeUI(null, document.createElement('div'), 'node2');
+    const node2 = new NodeUI(null, 'node2');
     editor.workspace.addNode(node2);
     node2.move(300,20);
 
 
-    const node3 = new NodeUI(null, document.createElement('div'), 'node3');
+    const node3 = new NodeUI(null, 'node3');
     editor.workspace.addNode(node3);
     node3.move(550,20);
 
-    const node4 = new NodeUI(null, document.createElement('div'), 'node4');
+    const node4 = new NodeUI(null, 'node4');
     editor.workspace.addNode(node4);
     node4.move(800,20);
 

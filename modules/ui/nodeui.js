@@ -1,13 +1,14 @@
 import Emitter from "../event/emitter.js";
 import Transform from "./transform.js";
+import SocketUI from "./socketui.js";
 
 export default class NodeUI extends Emitter {
 
     //TODO element should probably be created inside
-    constructor(node, element, title) {
-        super('nodeSelected');
-        this.element = element;
+    constructor(node, title) {
+        super('nodeSelected', 'createConnection', 'completeConnection', 'detachConnection');
         this.node = node;
+        this.element = document.createElement('div');
         this.transform = new Transform(0, 0, 1);
         this.transform.on('transform', event => event.transform.apply(this.element));
         this.element.classList.add('node');
@@ -45,8 +46,8 @@ export default class NodeUI extends Emitter {
         this.transform.translate(deltaX, deltaY);
     }
 
-    createInput(name, key, socket) {
-        const inputElement = document.createElement('div');
+    createInput(name, key) {
+         const inputElement = document.createElement('div');
         inputElement.classList.add('input');
 
         const nameElement = document.createElement('span');
@@ -54,13 +55,14 @@ export default class NodeUI extends Emitter {
         nameElement.textContent = name;
         inputElement.appendChild(nameElement);
 
+        const socket = new SocketUI(this, null, true);
         inputElement.appendChild(socket.element);
 
         this.inputsElement.appendChild(inputElement);
     }
 
 
-    createOutput(name, key, socket) {
+    createOutput(name, key) {
         const outputElement = document.createElement('div');
         outputElement.classList.add('output');
 
@@ -68,6 +70,8 @@ export default class NodeUI extends Emitter {
         nameElement.classList.add('name');
         nameElement.textContent = name;
         outputElement.appendChild(nameElement);
+
+        const socket = new SocketUI(this, null, false);
         outputElement.appendChild(socket.element);
 
         this.outputsElement.appendChild(outputElement);

@@ -1,11 +1,15 @@
 import Transform from "./transform.js";
 import DragManager from "./dragmanager.js";
+import ConnectionManagerUI from "./connectionmanagerui.js";
 
 export default class WorkspaceUI {
 
     constructor(editorUI) {
         this.editorUI = editorUI;
         this.element = document.createElement('div');
+        this.connectionManager = new ConnectionManagerUI(this); //TODO create connectionManager (should perhaps listen to pointerUp from EditorUI.
+
+
         this.editorUI.element.appendChild(this.element);
 
         this.transform = new Transform(0, 0, 1);
@@ -37,7 +41,7 @@ export default class WorkspaceUI {
             }
             this.selectNode(event.node);
         });
-
+        this.connectionManager.monitor(nodeUI);
         this.element.appendChild(nodeUI.element);
     }
 

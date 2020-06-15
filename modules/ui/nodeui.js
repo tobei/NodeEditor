@@ -32,6 +32,8 @@ export default class NodeUI extends Emitter {
         this.inputsElement.classList.add('inputs');
         this.element.appendChild(this.inputsElement);
 
+        this.sockets = new Set();
+
     }
 
     select() {
@@ -44,6 +46,10 @@ export default class NodeUI extends Emitter {
 
     move(deltaX, deltaY) {
         this.transform.translate(deltaX, deltaY);
+
+        this.sockets.forEach(socket => {
+            socket.connections.forEach(connection => connection.update());
+        });
     }
 
     createInput(name, key) {
@@ -56,6 +62,7 @@ export default class NodeUI extends Emitter {
         inputElement.appendChild(nameElement);
 
         const socket = new SocketUI(this, null, true);
+        this.sockets.add(socket);
         inputElement.appendChild(socket.element);
 
         this.inputsElement.appendChild(inputElement);
@@ -72,6 +79,7 @@ export default class NodeUI extends Emitter {
         outputElement.appendChild(nameElement);
 
         const socket = new SocketUI(this, null, false);
+        this.sockets.add(socket);
         outputElement.appendChild(socket.element);
 
         this.outputsElement.appendChild(outputElement);

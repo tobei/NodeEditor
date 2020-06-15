@@ -1,4 +1,5 @@
 import Emitter from "../event/emitter.js";
+import ConnectionUI from "./connectionui.js";
 
 export default class SocketUI extends Emitter {
 
@@ -33,7 +34,8 @@ export default class SocketUI extends Emitter {
     }
 
     getCoordinates() {
-        return {x: this.node.transform.translateX + this.element.offsetLeft, y: this.node.transform.translateY + this.element.offsetTop};
+        const dimensions = this.element.getBoundingClientRect();
+        return {x: this.node.transform.translateX + this.element.offsetLeft + dimensions.width / 2, y: this.node.transform.translateY + this.element.offsetTop + dimensions.height / 2};
     }
 
 }

@@ -11,26 +11,36 @@ export default class ConnectionUI extends Emitter {
         this._createElement();
     }
 
-    update(destinationPoint) {
+    updateDestination(destinationCoordinates) {
         const sourceCoordinates = this.sourceSocket.getCoordinates();
-        this.path.setAttribute('d', this._createPathString(sourceCoordinates.x, sourceCoordinates.y, destinationPoint.x, destinationPoint.y));
+        this.path.setAttribute('d', this._createPathString(sourceCoordinates.x, sourceCoordinates.y, destinationCoordinates.x, destinationCoordinates.y));
     }
 
     isAttached() {
         return this.destinationSocket != null;
     }
 
+    update() {
+        const sourceCoordinates = this.sourceSocket.getCoordinates();
+        const destinationCoordinates = this.destinationSocket.getCoordinates();
+        this.path.setAttribute('d', this._createPathString(sourceCoordinates.x, sourceCoordinates.y, destinationCoordinates.x, destinationCoordinates.y));
+    }
+
+
     complete(destinationSocket) {
         this.destinationSocket = destinationSocket;
+        this.destinationSocket.connections.add(this);
+        this.sourceSocket.connections.add(this);
+        this.update();
     }
 
     delete() {
         if (this.sourceSocket) {
-            this.sourceSocket.node; //TODO remove from there
+            this.sourceSocket.connections.remove(this);
         }
 
         if (this.destinationSocket) {
-            this.destinationSocket.node; //TODO remove from there
+            this.destinationSocket.connections.remove(this);
         }
 
         this.element.remove();
@@ -50,7 +60,7 @@ export default class ConnectionUI extends Emitter {
         svg.appendChild(this.path);
         this.element.appendChild(svg);
 
-        this.update(this.sourceSocket.getCoordinates(), this.sourceSocket.getCoordinates());
+        this.updateDestination(this.sourceSocket.getCoordinates(), this.sourceSocket.getCoordinates());
     }
 
     _createPathString(x1, y1, x2, y2) {

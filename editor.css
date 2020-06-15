@@ -89,3 +89,14 @@ html {
 .socket.input:hover,.socket.output:hover {
     background-color: white;
 }
+
+.connection {
+    overflow: visible;
+
+}
+
+.main-path {
+    stroke: black;
+    fill: none;
+    stroke-width: 5px;
+}

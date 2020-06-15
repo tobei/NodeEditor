@@ -34,6 +34,10 @@ export default class Transform extends Emitter {
         return [globalDistanceX / this.scaleFactor, globalDistanceY / this.scaleFactor];
     }
 
+    asLocalPosition(x, y) {
+        return {x: (x - this.translateX) / this.scaleFactor, y: (y - this.translateY) / this.scaleFactor}
+    }
+
     apply(htmlElement) {
         htmlElement.style.transformOrigin = '0 0';
         htmlElement.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scaleFactor})`;

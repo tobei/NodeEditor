@@ -16,7 +16,7 @@ export default class SocketUI extends Emitter {
             event.preventDefault();
 
             if (input) {
-                this.node.emit('detachConnection', {destinationSocket: this});
+                this.node.emit('detachConnection', {connection: null});
             } else {
                 this.node.emit('createConnection', {sourceSocket : this});
             }
@@ -30,7 +30,10 @@ export default class SocketUI extends Emitter {
             }
         });
 
+    }
 
+    getCoordinates() {
+        return {x: this.node.transform.translateX + this.element.offsetLeft, y: this.node.transform.translateY + this.element.offsetTop};
     }
 
 }

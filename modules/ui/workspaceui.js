@@ -9,7 +9,6 @@ export default class WorkspaceUI {
         this.element = document.createElement('div');
         this.connectionManager = new ConnectionManagerUI(this); //TODO create connectionManager (should perhaps listen to pointerUp from EditorUI.
 
-
         this.editorUI.element.appendChild(this.element);
 
         this.transform = new Transform(0, 0, 1);
@@ -20,7 +19,7 @@ export default class WorkspaceUI {
 
         this.nodeDragManager.on('dragMove', event => {
             const workspaceDistance = this.transform.asLocalDistance(event.x, event.y);
-            this.selectedNodes.forEach(node => node.move(...workspaceDistance));
+            this.selectedNodes.forEach(node => node.move(workspaceDistance.x, workspaceDistance.y));
         });
 
         this.editorUI.on('translate', event => this.transform.translate(event.x, event.y));

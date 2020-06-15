@@ -9,6 +9,7 @@ export default class ConnectionManagerUI {
 
         this.workspaceUI.editorUI.element.addEventListener('pointerup', event => {
             if (this.currentTask) {
+                this.currentTask.connection.delete();
                 this.currentTask = null;
                 console.log('CM : cancelling connection operation, destroying'); //TODO destroy the detached or temporary connection
             }
@@ -17,7 +18,7 @@ export default class ConnectionManagerUI {
         this.workspaceUI.editorUI.element.addEventListener('pointermove', event => {
             if (this.currentTask) {
                 const workspaceBounds = this.workspaceUI.element.getBoundingClientRect();
-                const localCoordinates = this.workspaceUI.transform.asLocalPosition(event.clientX - workspaceBounds.left, event.clientY - workspaceBounds.top);
+                const localCoordinates = this.workspaceUI.transform.asLocalDistance(event.clientX - workspaceBounds.left, event.clientY - workspaceBounds.top);
                 this.currentTask.connection.update(localCoordinates);
             }
         });
@@ -34,13 +35,13 @@ export default class ConnectionManagerUI {
 
         nodeUI.on('completeConnection', event => {
             if (this.currentTask) {
-                this.currentTask.destinationSocket = event.destinationSocket;
+                this.currentTask.connection.complete(event.destinationSocket);
                 console.log('CM: connection completed');
             }
             this.currentTask = null;
         });
 
-        nodeUI.on('detachConnection', event => {
+        nodeUI.on('detachConnection', event => {//TODO
             this.currentTask = {connection: event.connection};
             console.log('CM: detaching connection');
         });

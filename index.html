@@ -23,25 +23,25 @@
 
     const editor = new EditorUI(document.querySelector('#editor'));
 
-    const node1 = new NodeUI(null, document.createElement('div'), 'key pair');
+    const node1 = new NodeUI(null, 'key pair');
     editor.workspace.addNode(node1);
-    node1.move(50,20);
     node1.createOutput('private key', 'pk');
     node1.createOutput('public key', 'pk');
     node1.createInput('user', 'u');
+    node1.move(50,20);
 
-    const node2 = new NodeUI(null, 'node2');
+
+    const node2 = new NodeUI(null, 'crypto');
+    node2.createInput('key', 'key');
     editor.workspace.addNode(node2);
-    node2.move(300,20);
+    node2.move(500,20);
 
 
     const node3 = new NodeUI(null, 'node3');
     editor.workspace.addNode(node3);
-    node3.move(550,20);
+    node3.createInput('key', 'key');
+    node3.move(500,350);
 
-    const node4 = new NodeUI(null, 'node4');
-    editor.workspace.addNode(node4);
-    node4.move(800,20);
 
 </script>
 </body>

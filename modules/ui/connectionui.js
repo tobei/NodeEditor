@@ -16,11 +16,25 @@ export default class ConnectionUI extends Emitter {
         this.path.setAttribute('d', this._createPathString(sourceCoordinates.x, sourceCoordinates.y, destinationPoint.x, destinationPoint.y));
     }
 
-    complete(destinationSocket) {
-        this.destinationSocket = destinationSocket;
-        //TODO calculate destination point
+    isAttached() {
+        return this.destinationSocket != null;
     }
 
+    complete(destinationSocket) {
+        this.destinationSocket = destinationSocket;
+    }
+
+    delete() {
+        if (this.sourceSocket) {
+            this.sourceSocket.node; //TODO remove from there
+        }
+
+        if (this.destinationSocket) {
+            this.destinationSocket.node; //TODO remove from there
+        }
+
+        this.element.remove();
+    }
 
     _createElement(originSocket) {
         this.element = document.createElement('div');

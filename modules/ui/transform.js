@@ -31,11 +31,7 @@ export default class Transform extends Emitter {
     }
 
     asLocalDistance(globalDistanceX, globalDistanceY) {
-        return [globalDistanceX / this.scaleFactor, globalDistanceY / this.scaleFactor];
-    }
-
-    asLocalPosition(x, y) {
-        return {x: (x - this.translateX) / this.scaleFactor, y: (y - this.translateY) / this.scaleFactor}
+        return {x: globalDistanceX / this.scaleFactor, y: globalDistanceY / this.scaleFactor};
     }
 
     apply(htmlElement) {

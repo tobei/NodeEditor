@@ -18,15 +18,17 @@
 <script type="module">
     import EditorUI from './modules/ui/editorui.js'
     import NodeUI from './modules/ui/nodeui.js'
+    import SocketUI from "./modules/ui/socketui.js";
+
 
     const editor = new EditorUI(document.querySelector('#editor'));
 
     const node1 = new NodeUI(null, document.createElement('div'), 'key pair');
     editor.workspace.addNode(node1);
     node1.move(50,20);
-    node1.createOutput('private key');
-    node1.createOutput('public key');
-    node1.createInput('user');
+    node1.createOutput('private key', 'pk', new SocketUI(null, false));
+    node1.createOutput('public key', 'pk', new SocketUI(null, false));
+    node1.createInput('user', 'u', new SocketUI(null, true));
 
     const node2 = new NodeUI(null, document.createElement('div'), 'node2');
     editor.workspace.addNode(node2);

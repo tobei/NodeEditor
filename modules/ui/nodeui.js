@@ -45,7 +45,7 @@ export default class NodeUI extends Emitter {
         this.transform.translate(deltaX, deltaY);
     }
 
-    createInput(name, key, type) {
+    createInput(name, key, socket) {
         const inputElement = document.createElement('div');
         inputElement.classList.add('input');
 
@@ -54,26 +54,13 @@ export default class NodeUI extends Emitter {
         nameElement.textContent = name;
         inputElement.appendChild(nameElement);
 
-        const socketElement = document.createElement('span');
-        socketElement.classList.add('input');
-        socketElement.classList.add('socket');
-        inputElement.appendChild(socketElement);
+        inputElement.appendChild(socket.element);
 
-        socketElement.addEventListener('pointerup', event => {
-            event.stopPropagation();
-            console.log('input socket selected');
-        });
-
-        socketElement.addEventListener('pointerdown', event => {
-            event.stopPropagation();
-            event.preventDefault();
-            console.log('picking existing connection target');
-        });
         this.inputsElement.appendChild(inputElement);
     }
 
 
-    createOutput(name, key, type) {
+    createOutput(name, key, socket) {
         const outputElement = document.createElement('div');
         outputElement.classList.add('output');
 
@@ -81,17 +68,7 @@ export default class NodeUI extends Emitter {
         nameElement.classList.add('name');
         nameElement.textContent = name;
         outputElement.appendChild(nameElement);
-
-        const socketElement = document.createElement('span');
-        socketElement.classList.add('output');
-        socketElement.classList.add('socket');
-        outputElement.appendChild(socketElement);
-
-        socketElement.addEventListener('pointerdown', event => {
-            event.stopPropagation();
-            event.preventDefault();
-            console.log('output socket selected');
-        });
+        outputElement.appendChild(socket.element);
 
         this.outputsElement.appendChild(outputElement);
     }

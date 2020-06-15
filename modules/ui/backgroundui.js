@@ -6,7 +6,7 @@ export default class BackgroundUI {
         this.editorUI = editorUI;
         this.element = document.createElement('div');
         this.element.style.position = 'absolute';
-        this.element.style.background = 'url(./background.svg)';
+        this.element.style.background = 'url(./img/background.svg)';
         this.element.style.zIndex = '-1';
         this.editorUI.element.appendChild(this.element);
         this.transform = new TiledTransform(this.element, this.editorUI.element, 80);

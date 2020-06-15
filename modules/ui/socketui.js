@@ -17,7 +17,12 @@ export default class SocketUI extends Emitter {
             event.preventDefault();
 
             if (input) {
-                this.node.emit('detachConnection', {connection: null});
+                const connection = this.connections.values().next().value;
+                console.log(connection);
+                if (connection) {
+                    connection.detach();
+                    this.node.emit('detachConnection', {connection: connection});
+                }
             } else {
                 this.node.emit('createConnection', {sourceSocket : this});
             }

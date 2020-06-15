@@ -17,8 +17,8 @@ export default class BackgroundUI {
         this.editorUI.on('translate', event => this.transform.translate(event.x, event.y));
         this.editorUI.on('scale', event => {
             const bounds = this.element.getBoundingClientRect();
-            const ox = (bounds.left - event.x);
-            const oy = (bounds.top - event.y);
+            const centerX = (bounds.left - event.x);
+            const centerY = (bounds.top - event.y);
             this.transform.scaleAround(ox, oy, event.delta);
         });
     }

@@ -28,24 +28,29 @@ export default class ConnectionManagerUI {
     monitor(nodeUI) {
         nodeUI.on('createConnection', event => {
             console.log('CM: create temporary connection')
-            const connection = new ConnectionUI(event.sourceSocket, null);
-            this.currentTask = {connection: connection};
-            this.workspaceUI.element.appendChild(connection.element);
+            if (!this.currentTask) {
+                const connection = new ConnectionUI(event.sourceSocket, null);
+                this.currentTask = {connection: connection};
+                this.workspaceUI.element.appendChild(connection.element);
+            }
         });
 
         nodeUI.on('completeConnection', event => {
             if (this.currentTask) {
-                console.log('CM: detaching connection');
+                const incomingConnections = event.destinationSocket.connections;
+                for (const connection of incomingConnections) {
+                    connection.delete();
+                }
                 this.currentTask.connection.complete(event.destinationSocket);
                 console.log('CM: connection completed');
             }
             this.currentTask = null;
         });
 
-        nodeUI.on('detachConnection', event => {//TODO detach from both sockets
+        nodeUI.on('detachConnection', event => {
             if (!this.currentTask) {
                 this.currentTask = {connection: event.connection};
-                console.log('CM: detaching connection');
+                console.log('CM: detaching connection ' + event.connection);
             }
         });
     }

@@ -20,7 +20,7 @@ export default class ConnectionUI extends Emitter {
         return this.destinationSocket != null;
     }
 
-    update() {
+    updatePosition() {
         const sourceCoordinates = this.sourceSocket.getCoordinates();
         const destinationCoordinates = this.destinationSocket.getCoordinates();
         this.path.setAttribute('d', this._createPathString(sourceCoordinates.x, sourceCoordinates.y, destinationCoordinates.x, destinationCoordinates.y));
@@ -32,10 +32,15 @@ export default class ConnectionUI extends Emitter {
         this.destinationSocket.connections.add(this);
         this.sourceSocket.connections.add(this);
         this.path.classList.remove('temp');
-        this.update();
+        this.updatePosition();
     }
 
     delete() {
+        this.detach();
+        this.element.remove();
+    }
+
+    detach() {
         if (this.sourceSocket) {
             this.sourceSocket.connections.delete(this);
         }
@@ -44,7 +49,7 @@ export default class ConnectionUI extends Emitter {
             this.destinationSocket.connections.delete(this);
         }
 
-        this.element.remove();
+        this.path.classList.add('temp');
     }
 
     _createElement(originSocket) {

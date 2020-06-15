@@ -4,7 +4,6 @@ import SocketUI from "./socketui.js";
 
 export default class NodeUI extends Emitter {
 
-    //TODO element should probably be created inside
     constructor(node, title) {
         super('nodeSelected', 'createConnection', 'completeConnection', 'detachConnection');
         this.node = node;
@@ -33,7 +32,6 @@ export default class NodeUI extends Emitter {
         this.element.appendChild(this.inputsElement);
 
         this.sockets = new Set();
-
     }
 
     select() {
@@ -48,7 +46,7 @@ export default class NodeUI extends Emitter {
         this.transform.translate(deltaX, deltaY);
 
         this.sockets.forEach(socket => {
-            socket.connections.forEach(connection => connection.update());
+            socket.connections.forEach(connection => connection.updatePosition());
         });
     }
 

@@ -59,6 +59,16 @@ export default class NodeUI extends Emitter {
         socketElement.classList.add('socket');
         inputElement.appendChild(socketElement);
 
+        socketElement.addEventListener('pointerup', event => {
+            event.stopPropagation();
+            console.log('input socket selected');
+        });
+
+        socketElement.addEventListener('pointerdown', event => {
+            event.stopPropagation();
+            event.preventDefault();
+            console.log('picking existing connection target');
+        });
         this.inputsElement.appendChild(inputElement);
     }
 
@@ -76,6 +86,12 @@ export default class NodeUI extends Emitter {
         socketElement.classList.add('output');
         socketElement.classList.add('socket');
         outputElement.appendChild(socketElement);
+
+        socketElement.addEventListener('pointerdown', event => {
+            event.stopPropagation();
+            event.preventDefault();
+            console.log('output socket selected');
+        });
 
         this.outputsElement.appendChild(outputElement);
     }

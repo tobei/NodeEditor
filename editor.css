@@ -97,8 +97,12 @@ html {
 
 }
 
-.main-path {
+.path {
     stroke: black;
     fill: none;
     stroke-width: 5px;
+}
+
+.path.temp {
+    stroke-dasharray: 6;
 }

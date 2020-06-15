@@ -31,16 +31,17 @@ export default class ConnectionUI extends Emitter {
         this.destinationSocket = destinationSocket;
         this.destinationSocket.connections.add(this);
         this.sourceSocket.connections.add(this);
+        this.path.classList.remove('temp');
         this.update();
     }
 
     delete() {
         if (this.sourceSocket) {
-            this.sourceSocket.connections.remove(this);
+            this.sourceSocket.connections.delete(this);
         }
 
         if (this.destinationSocket) {
-            this.destinationSocket.connections.remove(this);
+            this.destinationSocket.connections.delete(this);
         }
 
         this.element.remove();
@@ -55,7 +56,8 @@ export default class ConnectionUI extends Emitter {
         this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
 
         svg.classList.add('connection');
-        this.path.classList.add('main-path');
+        this.path.classList.add('path');
+        this.path.classList.add('temp');
 
         svg.appendChild(this.path);
         this.element.appendChild(svg);

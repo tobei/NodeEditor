@@ -7,7 +7,7 @@ export default class ConnectionManagerUI {
 
         this.currentTask = null;
 
-        this.workspaceUI.editorUI.element.addEventListener('pointerup', event => {
+        this.workspaceUI.editorUI.addEventListener('pointerup', event => {
             if (this.currentTask) {
                 this.currentTask.connection.delete();
                 this.currentTask = null;
@@ -15,7 +15,7 @@ export default class ConnectionManagerUI {
             }
         });
 
-        this.workspaceUI.editorUI.element.addEventListener('pointermove', event => {
+        this.workspaceUI.editorUI.addEventListener('pointermove', event => {
             if (this.currentTask) {
                 const workspaceBounds = this.workspaceUI.element.getBoundingClientRect();
                 const localCoordinates = this.workspaceUI.transform.asLocalDistance(event.clientX - workspaceBounds.left, event.clientY - workspaceBounds.top);
@@ -26,7 +26,7 @@ export default class ConnectionManagerUI {
 
 
     monitor(nodeUI) {
-        nodeUI.on('createConnection', event => {
+        nodeUI.events.on('createConnection', event => {
             console.log('CM: create temporary connection')
             if (!this.currentTask) {
                 const connection = new ConnectionUI(event.sourceSocket, null);
@@ -35,7 +35,7 @@ export default class ConnectionManagerUI {
             }
         });
 
-        nodeUI.on('completeConnection', event => {
+        nodeUI.events.on('completeConnection', event => {
             if (this.currentTask) {
                 const incomingConnections = event.destinationSocket.connections;
                 for (const connection of incomingConnections) {
@@ -47,7 +47,7 @@ export default class ConnectionManagerUI {
             this.currentTask = null;
         });
 
-        nodeUI.on('detachConnection', event => {
+        nodeUI.events.on('detachConnection', event => {
             if (!this.currentTask) {
                 this.currentTask = {connection: event.connection};
                 console.log('CM: detaching connection ' + event.connection);

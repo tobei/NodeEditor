@@ -14,12 +14,24 @@
         <li>ctrl-click or shift-click for multi select</li>
     </ul>
 </div>
-<div id="editor"></div>
+<node-editor>
+    <node-ui slot="nodes" data-name="node1" data-x="100" data-y="200"></node-ui>
+    <node-ui slot="nodes" data-name="node2" data-x="400" data-y="200"></node-ui>
+    <node-ui slot="nodes" data-name="node3" data-x="700" data-y="200"></node-ui>
+</node-editor>
+
+
 <script type="module">
     import EditorUI from './modules/ui/editorui.js'
     import NodeUI from './modules/ui/nodeui.js'
 
-    const editor = new EditorUI(document.querySelector('#editor'));
+    window.customElements.define('node-editor', EditorUI);
+    window.customElements.define('node-ui', NodeUI);
+
+    /*const editor = new EditorUI(document.querySelector('#editor'));
+
+
+
 
     const node1 = new NodeUI(null, 'key pair');
     editor.workspace.addNode(node1);
@@ -43,7 +55,7 @@
     node3.createInput('key2', 'key');
     node3.createOutput('result', 'res');
     node3.createOutput('result2', 'res');
-    node3.move(500,350);
+    node3.move(500,350);*/
 
 
 </script>

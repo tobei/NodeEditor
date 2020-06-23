@@ -7,7 +7,8 @@ html {
     height: 100px;
 }
 
-#editor {
+node-editor {
+    display: block;
     position: relative;
     overflow: hidden;
     border-radius: 5px;

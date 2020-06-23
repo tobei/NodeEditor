@@ -2,44 +2,45 @@ import Emitter from "../event/emitter.js";
 import Transform from "./transform.js";
 import SocketUI from "./socketui.js";
 
-export default class NodeUI extends Emitter {
+export default class NodeUI extends HTMLElement {
 
-    constructor(node, title) {
-        super('nodeSelected', 'createConnection', 'completeConnection', 'detachConnection');
-        this.node = node;
-        this.element = document.createElement('div');
+    constructor() {
+        super();
+        this.events = new Emitter('nodeSelected', 'createConnection', 'completeConnection', 'detachConnection');
         this.transform = new Transform(0, 0, 1);
-        this.transform.on('transform', event => event.transform.apply(this.element));
-        this.element.classList.add('node');
-        this.element.style.position = 'absolute';
-        this.element.addEventListener('pointerdown', event => {
+        this.transform.on('transform', event => event.transform.apply(this));
+        this.classList.add('node');
+        this.style.position = 'absolute';
+        this.addEventListener('pointerdown', event => {
             if (event.button !== 0) return;
             event.stopPropagation();
             this.select();
-            this.emit('nodeSelected', {node: this, multiSelection: event.ctrlKey || event.shiftKey});
+            this.events.emit('nodeSelected', {node: this, multiSelection: event.ctrlKey || event.shiftKey});
         });
         const titleElement = document.createElement('div');
         titleElement.classList.add('title');
-        titleElement.textContent = title;
-        this.element.appendChild(titleElement);
+        titleElement.textContent = this.dataset.name;
+        this.appendChild(titleElement);
 
         this.outputsElement = document.createElement('div');
         this.outputsElement.classList.add('outputs');
-        this.element.appendChild(this.outputsElement);
+        this.appendChild(this.outputsElement);
 
         this.inputsElement = document.createElement('div');
         this.inputsElement.classList.add('inputs');
-        this.element.appendChild(this.inputsElement);
+        this.appendChild(this.inputsElement);
 
         this.sockets = new Set();
+        this.move(this.dataset.x, this.dataset.y);
+
     }
 
     select() {
-        this.element.classList.add('selected');
+        this.classList.add('selected');
     }
 
     deselect() {
-        this.element.classList.remove('selected');
+        this.classList.remove('selected');
     }
 
     move(deltaX, deltaY) {
@@ -82,4 +83,12 @@ export default class NodeUI extends Emitter {
 
         this.outputsElement.appendChild(outputElement);
     }
+
+    connectedCallback() {
+        const event = new CustomEvent('nodeInserted', {detail: {node: this}});
+        this.assignedSlot.dispatchEvent(event);
+    }
+
+
+
 }
